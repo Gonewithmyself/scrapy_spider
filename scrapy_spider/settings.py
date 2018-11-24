@@ -66,7 +66,8 @@ DOWNLOAD_DELAY = 3
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'scrapy_spider.pipelines.DataSubmitMySQLPipeline': 1,
+   #'scrapy_spider.pipelines.DataSubmitMySQLPipeline': 1,
+    'scrapy_spider.pipelines.WeiboPipeline': 1,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

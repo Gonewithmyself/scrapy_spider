@@ -15,10 +15,10 @@ from scrapy.http import Request
 from scrapy_spider.items import WeiboWBItem
 from scrapy_spider.spiders.util import *
 import json
-
+import time
 
 class WeiBoWBSpider(scrapy.Spider):
-    name = 'weibo_wb_spider'
+    name = 'tsks'
     allowed_domains = ['weibo.com']
     url_head = 'https://m.weibo.cn/api/container/getIndex?containerid='
 
@@ -28,7 +28,9 @@ class WeiBoWBSpider(scrapy.Spider):
 
     # 把网页URL转化为接口URL
     def start_requests(self):
-        for start_url in self.start_urls:
+        #for start_url in self.start_urls:
+        while True:
+            start_url = self.start_urls[0]
             if 'https://m.weibo.cn/p/' in start_url:
                 containerid = '107603' + start_url.replace('https://m.weibo.cn/p/', '')[6:]
             elif 'https://m.weibo.cn/u/' in start_url:
@@ -37,6 +39,7 @@ class WeiBoWBSpider(scrapy.Spider):
                 origin_url = '%s%s' % (self.url_head, containerid)
 
             yield Request(origin_url, callback=self.parse)
+            #time.sleep(1)
 
     def parse(self, response):
         content = json.loads(response.body)
@@ -54,7 +57,11 @@ class WeiBoWBSpider(scrapy.Spider):
                 continue
             txt = mlog.get('text')
             weibo_wb_item['content'] =  tsksParser.extract_info(txt)
+            if '两天一夜' in weibo_wb_item['content']:
+                playMusic('G:\\03 python\\spider\\scrapy_spider\\钟嘉欣 - 钢琴哭.mp3')
             yield  weibo_wb_item
+
+        # time.sleep(60)
 
 def _extract_info(src, pstr):
     patt = re.compile(pstr)

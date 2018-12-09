@@ -84,3 +84,12 @@ class ZhihuAnswersItem(scrapy.Item):
     url = scrapy.Field()
     # 发布时间
     publishTime = scrapy.Field()
+
+# 知乎问答
+class ManItem(scrapy.Item):
+    # 标题
+    ctx = scrapy.Field()
+    # 链接
+    url = scrapy.Field()
+    # 发布时间
+    ts = scrapy.Field()

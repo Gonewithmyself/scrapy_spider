@@ -37,6 +37,14 @@ class WeiboPipeline(object):
         print(content)
         print('-------------------------------------------------')
         pass
+
+# class ManPipeline(object):
+#     def process_item(self, item, spider):
+#         content = item['content']
+#         print('-------------------------------------------------')
+#         print(content)
+#         print('-------------------------------------------------')
+#         pass
         # txt = item['name']
         # if txt is None:
         #     return
